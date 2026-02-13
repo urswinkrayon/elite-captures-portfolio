@@ -4,7 +4,9 @@ import { images } from "@/data/placeholder";
 
 const Index = () => (
   <Layout>
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    {/* 1. Changed max-w-7xl to max-w-[2500px] to fill the screen */}
+    {/* 2. Reduced px-4 to px-2 on mobile so images are almost edge-to-edge */}
+    <section className="mx-auto max-w-[2500px] px-2 py-4 sm:px-6 sm:py-8 lg:px-10">
       <MasonryGrid images={images} />
     </section>
   </Layout>

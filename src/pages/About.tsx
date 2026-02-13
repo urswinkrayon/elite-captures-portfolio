@@ -3,29 +3,35 @@ import Layout from "@/components/Layout";
 
 const About = () => (
   <Layout>
-    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+    {/* Increased max-width to 7xl and adjusted padding for a more "Elite" feel */}
+    <section className="mx-auto max-w-7xl px-6 py-12 lg:px-12 lg:py-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative group"
         >
+          {/* UPDATED IMAGE PATH */}
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
+            src="/public/jasonpp.jpg" 
             alt="The photographer"
-            className="w-full aspect-[3/4] object-cover"
+            className="w-full h-auto object-cover shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
           />
+          {/* Subtle decorative border element for a premium look */}
+          <div className="absolute -bottom-4 -right-4 w-full h-full border border-foreground/10 -z-10" />
         </motion.div>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="flex flex-col justify-center"
         >
-          <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-wide text-foreground mb-6">
+          <h1 className="font-serif text-4xl sm:text-5xl font-light tracking-tight text-foreground mb-8">
             About
           </h1>
-          <div className="space-y-4 text-sm font-light leading-relaxed text-muted-foreground">
+          <div className="space-y-6 text-base font-light leading-relaxed text-muted-foreground/90">
             <p>
               Elite Captures is driven by a passion for visual storytelling — finding beauty in light,
               composition, and the unscripted moments that define our lives.

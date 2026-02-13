@@ -5,30 +5,45 @@ import { categories } from "@/data/placeholder";
 
 const Gallery = () => (
   <Layout>
-    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-wide text-foreground mb-10">
+    {/* 1. Changed max-w-7xl to max-w-[2000px] and reduced vertical padding */}
+    <section className="mx-auto max-w-[2000px] px-2 py-6 sm:px-4 lg:px-6">
+      <h1 className="font-serif text-4xl sm:text-5xl font-light tracking-tight text-foreground mb-8 px-2">
         Gallery
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      
+      {/* 2. Switched to CSS Columns for a Masonry effect (removes awkward gaps) */}
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
         {categories.map((cat, i) => (
           <motion.div
             key={cat.slug}
+            className="break-inside-avoid" // Prevents images from splitting across columns
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
           >
-            <Link to={`/gallery/${cat.slug}`} className="group block overflow-hidden relative aspect-[4/5]">
+            {/* 3. Removed aspect-[4/5] to let images breathe in their natural ratio */}
+            <Link 
+              to={`/gallery/${cat.slug}`} 
+              className="group block overflow-hidden relative rounded-sm bg-muted shadow-sm transition-all hover:shadow-xl"
+            >
               <img
                 src={cat.cover}
                 alt={cat.name}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                // 4. Changed from absolute/inset-0 to relative/w-full for natural height
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
-              <div className="absolute bottom-0 left-0 p-6">
-                <h2 className="font-serif text-2xl font-light text-primary-foreground tracking-wide">
+              
+              {/* Overlay: Slightly more subtle to keep focus on the photo */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+              
+              <div className="absolute bottom-0 left-0 p-8 w-full">
+                <h2 className="font-serif text-3xl font-light text-white tracking-wider">
                   {cat.name}
                 </h2>
+                <span className="text-white/70 text-sm uppercase tracking-widest mt-2 block opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                  View Collection
+                </span>
               </div>
             </Link>
           </motion.div>

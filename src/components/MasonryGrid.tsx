@@ -8,23 +8,28 @@ interface MasonryGridProps {
 
 const MasonryGrid = ({ images }: MasonryGridProps) => {
   return (
-    <div className="columns-2 md:columns-3 lg:columns-4 gap-2 sm:gap-3">
+    /* 1. Use 100% width and remove column caps */
+    <div className="w-full columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
       {images.map((image, index) => (
         <motion.div
           key={image.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.08 }}
-          className="mb-2 sm:mb-3 break-inside-avoid"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: index * 0.05 }}
+          className="break-inside-avoid"
         >
-          <Link to={`/gallery/${image.category}`} className="group block overflow-hidden">
+          <Link 
+            to={`/gallery/${image.category}`} 
+            className="group block overflow-hidden bg-neutral-100"
+          >
             <img
               src={image.src}
               alt={image.alt}
               loading="lazy"
-              className={`w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${
-                image.aspect === "portrait" ? "aspect-[3/4]" : image.aspect === "square" ? "aspect-square" : "aspect-[4/3]"
-              }`}
+              /* 2. REMOVED aspect ratios. 
+                 h-auto allows the image to be as big as its natural resolution allows.
+              */
+              className="w-full h-auto object-cover transition-all duration-700 ease-in-out group-hover:scale-105"
             />
           </Link>
         </motion.div>
