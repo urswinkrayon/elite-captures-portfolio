@@ -29,7 +29,7 @@ const About = () => (
           className="flex flex-col justify-center"
         >
           <h1 className="font-serif text-4xl sm:text-5xl font-light tracking-tight text-foreground mb-8">
-            About
+            About 
           </h1>
           <div className="space-y-6 text-base font-light leading-relaxed text-muted-foreground/90">
             <p>
