@@ -4,12 +4,12 @@ import { ImageItem } from "@/data/placeholder";
 
 interface MasonryGridProps {
   images: ImageItem[];
+  onImageLoad: () => void; // Added this prop
 }
 
-const MasonryGrid = ({ images }: MasonryGridProps) => {
+const MasonryGrid = ({ images, onImageLoad }: MasonryGridProps) => {
   return (
-    /* 1. Use 100% width and remove column caps */
-    <div className="w-full columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+    <div className="w-full columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
       {images.map((image, index) => (
         <motion.div
           key={image.id}
@@ -18,18 +18,19 @@ const MasonryGrid = ({ images }: MasonryGridProps) => {
           transition={{ duration: 0.6, delay: index * 0.05 }}
           className="break-inside-avoid"
         >
-          <Link 
-            to={`/gallery/${image.category}`} 
+          <Link
+            to={`/gallery/${image.category}`}
             className="group block overflow-hidden bg-neutral-100"
           >
             <img
               src={image.src}
               alt={image.alt}
-              loading="lazy"
-              /* 2. REMOVED aspect ratios. 
-                 h-auto allows the image to be as big as its natural resolution allows.
+              onLoad={onImageLoad} // Triggers the counter in your Index page
+              /* The first 6 images load immediately to hide the overlay ASAP.
+                 The rest lazy-load to save data and performance.
               */
-              className="w-full h-auto object-cover transition-all duration-700 ease-in-out group-hover:scale-105"
+              loading={index < 6 ? "eager" : "lazy"}
+              className="h-auto w-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105"
             />
           </Link>
         </motion.div>
